@@ -1,0 +1,82 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int calcularDeterminante(int a, int b, int c);
+void solucionesReales(int a, int b, int determinante);
+void solucionDoble(int a, int b);
+void solucionesImaginarias(int a, int b, int determinante);
+void resolverEcuacion(int a, int b, int c);
+
+int main() {
+    int a, b, c;
+
+    cout << "ECUACION CUADRATICA: ax^2 + bx + c = 0" << endl;
+    cout << "Ingrese el valor de a (entero): ";
+    cin >> a;
+    cout << "Ingrese el valor de b (entero): ";
+    cin >> b;
+    cout << "Ingrese el valor de c (entero): ";
+    cin >> c;
+
+    if (a == 0) {
+        cout << "No es una ecuacion cuadratica (a no puede ser 0)." << endl;
+    } else {
+        resolverEcuacion(a, b, c);
+    }
+
+    return 0;
+}
+
+
+int calcularDeterminante(int a, int b, int c) {
+    return (b * b) - (4 * a * c);
+}
+
+void solucionesReales(int a, int b, int determinante) {
+    double x1, x2;
+    x1 = (-b + sqrt(determinante)) / (2.0 * a);
+    x2 = (-b - sqrt(determinante)) / (2.0 * a);
+
+    cout << "Dos soluciones reales diferentes:" << endl;
+    cout << "x1 = " << x1 << endl;
+    cout << "x2 = " << x2 << endl;
+}
+
+void solucionDoble(int a, int b) {
+    double x;
+    x = -b / (2.0 * a);
+
+    cout << "Una solucion real doble:" << endl;
+    cout << "x = " << x << endl;
+}
+
+void solucionesImaginarias(int a, int b, int determinante) {
+    double parteReal, parteImaginaria;
+    parteReal = -b / (2.0 * a);
+    parteImaginaria = sqrt(-determinante) / (2.0 * a);
+
+    cout << "Soluciones imaginarias:" << endl;
+    cout << "x1 = " << parteReal << " + " << parteImaginaria << "i" << endl;
+    cout << "x2 = " << parteReal << " - " << parteImaginaria << "i" << endl;
+}
+
+void resolverEcuacion(int a, int b, int c) {
+    int determinante;
+
+    determinante = calcularDeterminante(a, b, c);
+
+    cout << "\nDeterminante (D) = " << determinante << endl;
+
+    if (determinante > 0) {
+        solucionesReales(a, b, determinante);
+    }
+    else if (determinante == 0) {
+        solucionDoble(a, b);
+    }
+    else {
+        solucionesImaginarias(a, b, determinante);
+    }
+}
+```
