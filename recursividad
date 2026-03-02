@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 int factorial(int n);
-int mayor(int a, int b, int c);
-int ciclo(int n);
+int sumanaturales(int a);
+int potencia(int n, int a);
 
 int main()
 {
@@ -10,8 +10,8 @@ int main()
 do {
     cout << "Menu\n";
     cout << "1. Calcular factorial\n";
-    cout << "2. Determinar el mayor de tres números\n";
-    cout << "3. Calcular la serie con ciclo For\n";
+    cout << "2. Suma de N numeros naturales\n";
+    cout << "3. Calcular la potencia de un numero\n";
     cout << "4. Salir\n";
     cin >> opcion;
     switch (opcion) {
@@ -24,21 +24,19 @@ do {
             break;
     }
         case 2: {
-            int a, b, c;
-            cout << "Introduce el primer número: ";
+            int a;
+            cout << "Introduce el número: ";
             cin >> a;
-            cout << "Introduce el segundo número: ";
-            cin >> b;
-            cout << "Introduce el tercer número: ";
-            cin >> c;
-            cout << "el mayor es " << mayor(a, b, c) << endl;
+            cout << "la suma de " << a << " es " << sumanaturales(a) << endl;
             break;
     }
         case 3: {
-            int n;
-            cout << "Introduce el valor de x: ";
+            int n, a;
+            cout << "Introduce la base: ";
             cin >> n;
-            cout << "La suma total de la serie es: " << ciclo(n) << endl;
+            cout << "Introduce el exponente: ";
+            cin >> a;
+            cout << "La suma total de la serie es: " << potencia(n, a) << endl;
             break;
         }
         case 4:
@@ -58,31 +56,15 @@ int factorial(int n) {
         return 1;
     else return factorial(n - 1) * n;
 }
-
-int mayor(int a, int b, int c){
-    if (a == b && b == c) {
-        cout << "Todos los números son iguales.\n";
-        return 0;
-    }
-    else if (a > b && a > c) {
-        cout << "El mayor número es: " << a << endl;
-        return a;
-    }
-    else if (b > a && b > c) {
-        cout << "El mayor número es: " << b << endl;
-        return b;
-    }
-    else {
-        cout << "El mayor número es: " << c << endl;
-        return c;
-    }
+int sumanaturales(int a) {
+    if (a == 1)
+        return 1;
+    else return a + sumanaturales(a - 1);
 }
 
-int ciclo(int x) {
-    double suma = 0;
-    for (int b = 1; b <= 10; ++b) {
-        suma += pow(x, b);
-    }
-    cout << "La suma total de la serie es: " << suma << endl;
-    return suma;
+int potencia(int n, int a) {
+    if (a == 0)
+        return 1;
+
+    else return n * potencia(n, a - 1);
 }
