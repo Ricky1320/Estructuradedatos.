@@ -1,0 +1,88 @@
+#include <iostream>
+using namespace std;
+int factorial(int n);
+int mayor(int a, int b, int c);
+int ciclo(int n);
+
+int main()
+{
+    int opcion;
+do {
+    cout << "Menu\n";
+    cout << "1. Calcular factorial\n";
+    cout << "2. Determinar el mayor de tres números\n";
+    cout << "3. Calcular la serie con ciclo For\n";
+    cout << "4. Salir\n";
+    cin >> opcion;
+    switch (opcion) {
+        
+        case 1: {
+            int n;
+            cout << "ingresar numero ";
+            cin >> n;
+            cout << "el factorial de " << n << " es " << factorial(n) << endl;
+            break;
+    }
+        case 2: {
+            int a, b, c;
+            cout << "Introduce el primer número: ";
+            cin >> a;
+            cout << "Introduce el segundo número: ";
+            cin >> b;
+            cout << "Introduce el tercer número: ";
+            cin >> c;
+            cout << "el mayor es " << mayor(a, b, c) << endl;
+            break;
+    }
+        case 3: {
+            int n;
+            cout << "Introduce el valor de x: ";
+            cin >> n;
+            cout << "La suma total de la serie es: " << ciclo(n) << endl;
+            break;
+        }
+        case 4:
+            cout << "¡Hasta luego!\n";
+            return 0;
+            break;
+        default:
+            cout << "Opción no válida. Intenta de nuevo.\n";
+            break;
+}
+} while (opcion != 4);
+    
+}
+
+int factorial(int n) {
+    if ((n == 0) || (n == 1))
+        return 1;
+    else return factorial(n - 1) * n;
+}
+
+int mayor(int a, int b, int c){
+    if (a == b && b == c) {
+        cout << "Todos los números son iguales.\n";
+        return 0;
+    }
+    else if (a > b && a > c) {
+        cout << "El mayor número es: " << a << endl;
+        return a;
+    }
+    else if (b > a && b > c) {
+        cout << "El mayor número es: " << b << endl;
+        return b;
+    }
+    else {
+        cout << "El mayor número es: " << c << endl;
+        return c;
+    }
+}
+
+int ciclo(int x) {
+    double suma = 0;
+    for (int b = 1; b <= 10; ++b) {
+        suma += pow(x, b);
+    }
+    cout << "La suma total de la serie es: " << suma << endl;
+    return suma;
+}
