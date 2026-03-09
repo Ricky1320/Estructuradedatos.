@@ -1,0 +1,104 @@
+#include <iostream>
+#include "conio.h"
+#include "Vector.h"  //Declarar el header de la clase
+
+#define MAX 10
+
+using namespace std;
+
+int main() {
+
+	int vec[MAX], n, op;
+	Vector vector1;  // Declarando el objeto vector1 de la clase vector
+	do {
+		cout << "Ingrese el tamanio del vector : ";
+		cin >> n;
+	} while ((n > MAX) || (n <= 0));
+	do {
+		cout << "-----       M E N U        -----" << endl;
+		cout << "|1.- Cargar Vector.            |" << endl;
+		cout << "|2.- Mostrar Vector.           |" << endl;
+		cout << "|3.- Ordenar Vector.           |" << endl;
+		cout << "|0.- Salir                     |" << endl;
+		cout << "--------------------------------" << endl;
+		cout << " Elija una opcion" << endl;
+		cin >> op;
+		switch (op) {
+		case 1:
+			vector1.cargarVector(vec, n);  //Llamar al metodo
+			break;
+		case 2:
+			vector1.mostrarVector(vec, n);
+			break;
+		case 3:
+			vector1.ordenarVector(vec, n);
+			break;
+		case 0:
+			cout << "Salir" << endl;
+			break;
+		default:
+			cout << "Error: Opcion no valida..." << endl;
+			break;
+		}
+	} while (op != 0);
+	return 0;
+}
+
+#pragma once
+class Vector
+{
+private:
+	int vec[10], n;
+public:
+	Vector(void); // constructor
+	~Vector(void); //destructor
+
+	void cargarVector(int vec[], int n); //metodos
+	void mostrarVector(int vec[], int n);
+	void ordenarVector(int vec[], int n);
+};
+
+
+#include "vector.h"
+#include <iostream>
+#include "vector.h"
+
+using namespace std;
+
+Vector::Vector(void)
+{
+	vec[10] = 0;
+	n = 0;
+}
+
+
+Vector::~Vector(void)
+{
+}
+
+void Vector::cargarVector(int vec[], int n) {
+	for (int i = 0; i < n; i++) {
+		cout << "vec[" << i << "] =";
+		cin >> vec[i];
+	}
+}
+
+void Vector::mostrarVector(int vec[], int n) {
+	for (int i = 0; i < n; i++) {
+		cout << vec[i] << ", ";
+	}
+	cout << endl;
+}
+
+void Vector::ordenarVector(int vec[], int n) {
+	int aux;
+	for (int i = 0; i < (n - 1); i++) {
+		for (int j = i; j < n; j++) {
+			if (vec[i] > vec[j]) {
+				aux = vec[i];
+				vec[i] = vec[j];
+				vec[j] = aux;
+			}
+		}
+	}
+}
