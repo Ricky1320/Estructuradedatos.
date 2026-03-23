@@ -1,0 +1,116 @@
+#include "Vector.h"
+Vector::Vector(){
+	n = 0;
+}
+void Vector::cargar(int tam) {
+	n = tam;
+	for (int i = 0; i < n; i++) {
+		cout << "Elemento [" << i << "]: ";
+		cin >> dato[i];
+	}
+}
+void Vector::mostrar(){
+	cout << "[ ";
+	for (int i = 0; i < n; i++) {
+		cout << dato[i];
+		if (i < n - 1) {
+			cout << " ";
+		}
+	}
+	cout << " ]";
+}
+void Vector::setDato(int pos, string valor){
+	dato[pos] = valor;
+}
+string Vector::getDato(int pos) const{
+	return dato[pos];
+}
+void Vector::setN(int tam){
+	n = tam;
+}
+int Vector::getN() const{
+	return n;
+}
+    #pragma once
+#define MAX 10
+#include <iostream>
+#include <string>
+using namespace std;
+class Vector
+{
+private:
+	string dato[MAX];
+	int n;
+public:
+	Vector();
+	void cargar(int n);
+	void mostrar();
+	void setDato(int pos, string valor);
+	string getDato(int pos) const;
+	void setN(int tam);
+	int getN() const;
+};
+  #include <iostream>
+#include "Vector.h"
+#include <string>
+using namespace std;
+void cargarVectorDeVectores(Vector v[], int n);
+void generarMatriz(Vector v[], Vector m[][MAX], int n);
+void mostrarVectorDeVectores(Vector v[], int n);
+void mostrarMatriz(Vector m[][MAX], int n);
+
+
+int main()
+{
+    int tamano;
+    Vector vec[MAX];
+    Vector matriz[MAX][MAX];
+    do {
+        cout << "ingresar tamano: ";
+        cin >> tamano;
+        if ((tamano <= 0) || (tamano > MAX))
+            cout << "tamano invalido";
+    } while ((tamano <= 0) || (tamano > MAX));
+    cargarVectorDeVectores(vec, tamano);
+    generarMatriz(vec, matriz,tamano);
+    mostrarVectorDeVectores(vec,tamano);
+    mostrarMatriz(matriz, tamano);
+    return 0;
+}
+void cargarVectorDeVectores(Vector v[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << "\nCargando vector [" << i << "]" << endl;
+        v[i].cargar(n);
+    }
+}
+
+void generarMatriz(Vector v[], Vector m[][MAX], int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            m[i][j].setN(n);
+            for (int k = 0; k < n; k++) {
+                m[i][j].setDato(k, v[i].getDato(j));
+            }
+        }
+    }
+}
+
+void mostrarVectorDeVectores(Vector v[], int n) {
+    cout << "\nVECTOR DE VECTORES" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << "V[" << i << "] = ";
+        v[i].mostrar();
+        cout << endl;
+    }
+}
+
+void mostrarMatriz(Vector m[][MAX], int n) {
+    cout << "\nMATRIZ n x n" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            m[i][j].mostrar();
+            cout << " ";
+        }
+        cout << endl;
+    }
+}
