@@ -1,0 +1,187 @@
+#include <iostream>
+#include <string>
+#include <conio.h>
+using namespace std;
+void contarVocales(string nombre);
+void usarAt(string nombre);
+void usarSubstr(string nombre);
+void intercambiar(string& nombre, string& var2);
+void buscarEspacios(string var2);
+void invertirCadena();
+void quitarVocales(string nombre);
+void compararCadenas();
+
+int main()
+{
+    int opcion;
+    string nombre, var2;
+
+    do {
+        cout << "\n===== MENU =====";
+        cout << "\n1. Contar vocales";
+        cout << "\n2. Contar vocales con at";
+        cout << "\n3. Substring";
+        cout << "\n4. Intercambiar strings";
+        cout << "\n5. Buscar espacios";
+        cout << "\n6. Invertir cadena y verificar palindromo";
+        cout << "\n7. Quitar vocales";
+        cout << "\n8. Comparar cadenas";
+        cout << "\n0. Salir";
+        cout << "\nSeleccione una opcion: ";
+        cin >> opcion;
+        cin.ignore();
+
+        switch (opcion)
+        {
+        case 1:
+            cout << "Ingrese nombre: ";
+            getline(cin, nombre);
+            contarVocales(nombre);
+            break;
+
+        case 2:
+            cout << "Ingrese nombre: ";
+            getline(cin, nombre);
+            usarAt(nombre);
+            break;
+
+        case 3:
+            cout << "Ingrese nombre: ";
+            getline(cin, nombre);
+            usarSubstr(nombre);
+            break;
+
+        case 4:
+            cout << "Ingrese nombre 1: ";
+            getline(cin, nombre);
+            cout << "Ingrese nombre 2: ";
+            getline(cin, var2);
+            intercambiar(nombre, var2);
+            break;
+
+        case 5:
+            cout << "Ingrese texto: ";
+            getline(cin, var2);
+            buscarEspacios(var2);
+            break;
+
+        case 6:
+            invertirCadena();
+            break;
+
+        case 7:
+            cout << "Ingrese texto: ";
+            getline(cin, nombre);
+            quitarVocales(nombre);
+            break;
+
+        case 8:
+            compararCadenas();
+            break;
+        case 0:
+            cout << "saliendo...." << endl;
+            break;
+        default:
+            cout << "opcion invalidad" << endl;
+        }
+
+    } while (opcion != 0);
+
+    return 0;
+}
+
+void contarVocales(string nombre)
+{
+    int cont = 0;
+    for (int i = 0; i < nombre.length(); i++)
+        if (nombre[i] == 'a' || nombre[i] == 'e' || nombre[i] == 'i' || nombre[i] == 'o' || nombre[i] == 'u')
+            cont++;
+
+    cout << "Numero de vocales: " << cont << endl;
+}
+
+void usarAt(string nombre)
+{
+    int cont = 0;
+    for (int i = 0; i < nombre.length(); i++)
+        if (nombre.at(i) == 'a' || nombre.at(i) == 'e' || nombre.at(i) == 'i' || nombre.at(i) == 'o' || nombre.at(i) == 'u')
+            cont++;
+
+    cout << "Numero de vocales: " << cont << endl;
+}
+
+void usarSubstr(string nombre)
+{
+    int pos;
+    cout << "Ingrese posicion inicial: ";
+    cin >> pos;
+    cin.ignore();
+
+    cout << "Substring: " << nombre.substr(pos, nombre.length() - pos) << endl;
+}
+
+void intercambiar(string& nombre, string& var2)
+{
+    nombre.swap(var2);
+    cout << "Nombre 1: " << nombre << endl;
+    cout << "Nombre 2: " << var2 << endl;
+}
+
+void buscarEspacios(string var2)
+{
+    for (int i = 0; i < var2.length(); i++)
+        if (var2.at(i) == ' ')
+            cout << "Espacio en posicion: " << i << endl;
+}
+
+void invertirCadena()
+{
+    string nombre, var2;
+    char aux;
+
+    cout << "Ingrese frase: ";
+    getline(cin, nombre);
+
+    var2 = nombre;
+
+    int longitud = nombre.length();
+
+    for (int i = 0; i < longitud / 2; i++)
+    {
+        aux = nombre[i];
+        nombre[i] = nombre[longitud - 1 - i];
+        nombre[longitud - 1 - i] = aux;
+    }
+
+    cout << "Cadena invertida: " << nombre << endl;
+
+    if (var2.compare(nombre) == 0)
+        cout << "Es un palindromo" << endl;
+}
+
+void quitarVocales(string nombre)
+{
+    string resultado = "";
+
+    for (int i = 0; i < nombre.length(); i++)
+        if (nombre[i] != 'a' && nombre[i] != 'e' && nombre[i] != 'i' && nombre[i] != 'o' && nombre[i] != 'u')
+            resultado += nombre[i];
+
+    cout << "Sin vocales: " << resultado << endl;
+}
+
+void compararCadenas()
+{
+    string nombre, var2;
+
+    cout << "Ingrese nombre: ";
+    getline(cin, nombre);
+
+    cout << "Redigite el nombre: ";
+    getline(cin, var2);
+
+    if (nombre.compare(var2) == 0)
+        cout << "Los datos coinciden" << endl;
+    else
+        cout << nombre << " es diferente que " << var2 << endl;
+}
