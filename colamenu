@@ -1,0 +1,164 @@
+#include <iostream>
+#include "Cola.h"
+using namespace std;
+
+int main() {
+    int opcion;
+    Cola c;
+
+    do {
+        cout << "\nElige una opción:\n";
+        cout << "1. Encolar elemento\n";
+        cout << "2. Desencolar elemento\n";
+        cout << "3. Ver frente de la cola\n";
+        cout << "4. Ver toda la cola\n";
+        cout << "5. Verificar si la cola está vacía\n";
+        cout << "6. Limpiar cola\n";
+        cout << "0. Salir\n";
+        cout << "Opción: ";
+        cin >> opcion;
+
+        switch (opcion) {
+        case 1: {
+            int elemento;
+            cout << "Ingrese el elemento a encolar: ";
+            cin >> elemento;
+            if (c.Encolar(elemento))
+                cout << "Elemento encolado correctamente\n";
+            break;
+        }
+        case 2: {
+            if (c.Desencolar())
+                cout << "Elemento desencolado correctamente\n";
+            break;
+        }
+        case 3: {
+            int elemento;
+            if (c.FrenteCola(elemento))
+                cout << "Elemento en el frente: " << elemento << endl;
+            break;
+        }
+        case 4: {
+            cout << "Elementos de la cola:\n";
+            c.VerCola();
+            break;
+        }
+        case 5: {
+            if (c.ColaVacia())
+                cout << "La cola está vacía\n";
+            else
+                cout << "La cola NO está vacía\n";
+            break;
+        }
+        case 6: {
+            c.LimpiarCola();
+            cout << "Cola limpiada\n";
+            break;
+        }
+        case 0:
+            cout << "¡Hasta luego!\n";
+            break;
+
+        default:
+            cout << "Opción no válida. Intenta de nuevo.\n";
+            break;
+        }
+
+    } while (opcion != 0);
+
+    return 0;
+}#pragma once
+#define MAX 100
+
+class Cola
+{
+private:
+    int cola[MAX];
+    int frente;
+    int final;
+
+public:
+    Cola();
+    bool Encolar(int elemento);
+    bool Desencolar();
+    bool FrenteCola(int& elemento);
+    bool ColaVacia();
+    bool ColaLlena();
+    void LimpiarCola();
+    void VerCola();
+};
+
+#include <iostream>
+#include "Cola.h"
+using namespace std;
+
+Cola::Cola()
+{
+    frente = 0;
+    final = -1;
+}
+
+bool Cola::ColaVacia()
+{
+    return final < frente;
+}
+
+bool Cola::ColaLlena()
+{
+    return final == MAX - 1;
+}
+
+bool Cola::Encolar(int elemento)
+{
+    if (ColaLlena())
+    {
+        cout << "Desbordamiento de cola (Overflow)\n";
+        return false;
+    }
+
+    final++;
+    cola[final] = elemento;
+    return true;
+}
+
+bool Cola::Desencolar()
+{
+    if (ColaVacia())
+    {
+        cout << "Cola vacia (Underflow)\n";
+        return false;
+    }
+
+    frente++;
+    return true;
+}
+
+bool Cola::FrenteCola(int& elemento)
+{
+    if (ColaVacia())
+    {
+        cout << "Cola vacia\n";
+        return false;
+    }
+
+    elemento = cola[frente];
+    return true;
+}
+
+void Cola::VerCola()
+{
+    if (ColaVacia())
+    {
+        cout << "Cola vacia\n";
+        return;
+    }
+
+    for (int i = frente; i <= final; i++)
+        cout << cola[i] << endl;
+}
+
+void Cola::LimpiarCola()
+{
+    frente = 0;
+    final = -1;
+}
