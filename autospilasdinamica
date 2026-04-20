@@ -1,0 +1,148 @@
+#pragma once
+#include <string>
+using namespace std;
+class Nodo
+{
+public:
+	char placa;
+	int ano;
+	string marca;
+	float km;
+	char modelo;
+	Nodo* sig;
+};
+
+
+#include "pila.h"
+#include "nodo.h"
+#include <iostream>
+using namespace std;
+
+void Pila::push() {
+	Nodo* nuevo = new Nodo;
+	cout << "ingrese placa: ";
+	cin >> nuevo->placa;
+	cout << "ingrese ano: ";
+	cin >> nuevo->ano;
+	cout << "ingrese marca";
+	cin >> nuevo->marca;
+	cout << "ingrese kilometraje: ";
+	cin >> nuevo->km;
+	cout << "ingrese modelo: ";
+	cin >> nuevo->modelo;
+	nuevo->sig = inicio;
+	inicio = nuevo;
+	cout << "elemento agregado a la pila";
+}
+void Pila::pop(){
+	if(inicio== NULL){
+		cout << "la pila esta vacia";
+		return;
+	}
+	Nodo* aux = inicio;
+	inicio = inicio->sig;
+	delete aux;
+	cout << "elemento desapilado";
+}
+void Pila::show(){
+    if (inicio == NULL) {
+        cout << "La pila esta vacia.\n";
+        return;
+    }
+
+    Nodo* aux = inicio;
+    while (aux != NULL) {
+        cout << "Placa: " << aux->placa << endl;
+        cout << "Año: " << aux->ano << endl;
+        cout << "Marca: " << aux->marca << endl;
+        cout << "Km: " << aux->km << endl;
+        cout << "Modelo: " << aux->modelo << endl;
+        cout << "------------------\n";
+        aux = aux->sig;
+    }
+}
+
+void Pila::top() {
+    if (inicio == NULL) {
+        cout << "La pila esta vacia.\n";
+        return;
+    }
+
+    cout << "Elemento en la cima:\n";
+    cout << "Placa: " << inicio->placa << endl;
+    cout << "Año: " << inicio->ano << endl;
+    cout << "Marca: " << inicio->marca << endl;
+    cout << "Km: " << inicio->km << endl;
+    cout << "Modelo: " << inicio->modelo << endl;
+}
+
+void Pila::size() {
+    int contador = 0;
+    Nodo* aux = inicio;
+
+    while (aux != NULL) {
+        contador++;
+        aux = aux->sig;
+    }
+
+    cout << "Tamaño de la pila: " << contador << endl;
+}
+#pragma once
+#include <string>
+#include "Nodo.h"
+using namespace std;
+
+class Pila
+{
+	Nodo* inicio;
+public:
+	Pila() {
+		inicio = NULL;
+	}
+	void push();
+	void pop();
+	void show();
+	void top();
+	void size();
+};
+#include <iostream>
+#include "Pila.h"
+using namespace std;
+
+int main() {
+    Pila p;
+    int opcion;
+
+    do {
+        cout << "\n--- MENU PILA ---\n";
+        cout << "1. Push (Agregar)\n";
+        cout << "2. Pop (Eliminar)\n";
+        cout << "3. Mostrar\n";
+        cout << "4. Top (Cima)\n";
+        cout << "5. Tamaño\n";
+        cout << "0. Salir\n";
+        cout << "Seleccione: ";
+        cin >> opcion;
+
+        switch (opcion) {
+        case 1:
+            p.push();
+            break;
+        case 2:
+            p.pop();
+            break;
+        case 3:
+            p.show();
+            break;
+        case 4:
+            p.top();
+            break;
+        case 5:
+            p.size();
+            break;
+        }
+
+    } while (opcion != 0);
+
+    return 0;
+}
